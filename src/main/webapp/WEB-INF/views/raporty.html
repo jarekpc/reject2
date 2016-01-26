@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raporty</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="././bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="././bower_components/moment/min/moment.min.js"></script>
+<script type="text/javascript" src="././bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="././bower_components/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="././bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+  
+<script type="text/javascript" src="././bower_components/eonasdan-bootstrap-datetimepicker/locales/pl.js"></script>
+</head>
+<body class="container-fluid">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Nazwa Apki</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        
+        <li><a href="adres">Dane adresowe</a></li>
+        <li><a href="kalendarz">Kalendarz</a></li>
+        <li><a href="raporty">Raporty</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<h5>Raporty na podstawie wizyt</h5>
+   <div class="date-form">
+    
+<div class="container">
+    <div class="row">
+        <div class='col-sm-6'>
+            <div class="form-group">
+                Od daty:<div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <hr/>
+                Do daty:
+                 <div class='input-group date' id='datetimepicker2'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function () {                
+            	  $('#datetimepicker1').datetimepicker({
+                      locale: 'pl'
+                  });
+            	  
+            	  $('#datetimepicker2').datetimepicker({
+                      locale: 'pl'
+                  });
+            	  
+            });
+        </script>
+    </div>
+    <h5>Wykres </h5>
+</div>
+    
+</body>
+</html>
