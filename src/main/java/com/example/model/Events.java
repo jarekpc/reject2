@@ -1,5 +1,6 @@
 package com.example.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -9,14 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="EVENTS")
-public class Events {
+public class Events implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	
 	@Column(name="ID_EVENT")
 	private Long id_event;
 	
@@ -32,19 +30,9 @@ public class Events {
 	@Column(name="COST")
 	private Integer cost;
 	
-	@OneToOne(cascade = CascadeType.ALL,mappedBy = "events")
 	private Client client;
 	
-	public Events(String title, Date startsat, Date endsat, Integer cost, Client client) {
-		super();
-		//this.id_event = id_event;
-		this.title = title;
-		this.startsat = startsat;
-		this.endsat = endsat;
-		this.cost = cost;
-		this.client = client;
-	}
-
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "events")
 	public Client getClient() {
 		return client;
 	}
@@ -52,13 +40,15 @@ public class Events {
 	public void setClient(Client client) {
 		this.client = client;
 	}
-	
-	public Long getId() {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public Long getId_event() {
 		return id_event;
 	}
 
-	public void setId(Long id) {
-		this.id_event = id;
+	public void setId_event(Long id_event) {
+		this.id_event = id_event;
 	}
 
 	public String getTitle() {
@@ -92,5 +82,29 @@ public class Events {
 	public void setCost(Integer cost) {
 		this.cost = cost;
 	}
+	
+	public Events() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Events(String title, Date startsat, Date endsat, Integer cost, Client client) {
+		//super();
+		this.title = title;
+		this.startsat = startsat;
+		this.endsat = endsat;
+		this.cost = cost;
+		this.client = client;
+		
+	}
+
+	public Events(String title, Date startsat, Date endsat, Integer cost) {
+		//super();
+		this.title = title;
+		this.startsat = startsat;
+		this.endsat = endsat;
+		this.cost = cost;
+	}
+	
+	
 	
 }

@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,27 +70,19 @@ public class SampleController {
 		System.out.println("Start time " + formatter.parse(formatter.format(cal_start.getTime())));
 		System.out.println("End time " +   formatter.parse(formatter.format(cal_stop.getTime())));
 		System.out.println(map.get("title") + "--" +map.get("startsAt") +"--"+map.get("endsAt")+"--"+map.get("cost"));
-		/*
-		Events events = new Events();
-		events.setTitle(map.get("title").toString());
-		events.setStartsat(formatter.parse(formatter.format(cal_start.getTime())));
-		events.setEndsat(formatter.parse(formatter.format(cal_stop.getTime())));
-		if(map.get("cost") == null){
-			events.setCost(0);
-		}
-		events.setCost(new Integer(map.get("cost").toString()));
-		*/
-		//System.out.println(map.get("name") + " "+map.get("surname") + " "+map.get("email")+ " "+map.get("number_phone"));
 		
-		Client client = new Client();
+		//Client client = new Client("jarek", "nowak", "jarekpc@o2.pl", "333333333");
+		Client client = new Client(map.get("name").toString(),map.get("surname").toString(),map.get("email").toString(),map.get("number_phone").toString());
+		/*
 		client.setName(map.get("name").toString());
 		client.setSurname(map.get("surname").toString());
 		client.setEmail(map.get("email").toString());
 		client.setPhone(map.get("number_phone").toString());
-		//events.setClient(client);
-		
-		Events events = new Events(map.get("title").toString(), formatter.parse(formatter.format(cal_start.getTime())), formatter.parse(formatter.format(cal_stop.getTime())), new Integer(map.get("cost").toString()), client);
+		*/
+		List<Events> events = new ArrayList<>();
+		events.add(new Events(map.get("title").toString(), formatter.parse(formatter.format(cal_start.getTime())), formatter.parse(formatter.format(cal_stop.getTime())), new Integer(map.get("cost").toString()),client));
 		eventsRepository.save(events);
+		
 	}
 	
 	@RequestMapping(value = "/addClient", method = RequestMethod.POST)
