@@ -5,26 +5,25 @@
 <title>Kalendarz</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.4/interact.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
-<script src="https://mattlewis.me/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.min.js"></script>
-<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://mattlewis.me/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.4.8/angular-locale_pl-pl.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/pl.js"></script>
 -->
 <script src="././bower_components/moment/src/moment.min.js"></script>
+<script src="././bower_components/angular-moment/angular-moment.js"></script>
+<script src="././bower_components/moment/locale/pl.js"></script>
+
 <script src="././bower_components/interact/interact.js"></script>
 <script src="././bower_components/angular/angular.js"></script>
 <script src="././bower_components/angular-animate/angular-animate.js"></script>
 <script src="././bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="././bower_components/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.min.js"></script>
 <script src="././bower_components/angular-bootstrap-calendar/dist/js/example1.js"></script>
+ 
+<script src="././bower_components/angular-bootstrap-calendar/dist/js/pl-PL.js"></script>
+
 <script src="././bower_components/angular-bootstrap-calendar/dist/js/helpers1.js"></script>
 <link rel="stylesheet" href="././bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="././bower_components/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css"/>
+
 <script src="././bower_components/angular-i18n/angular-locale_pl-pl.js"></script>	
 
 </head>
@@ -56,8 +55,8 @@
 
 
 <div ng-controller="KitchenSinkCtrl as vm">
-  <h2 class="text-center">{{ vm.calendarTitle }}</h2>
-
+  <h2 class="text-center">Dzisiaj jest {{ vm.calendarTitle | date:'longDate' }}</h2>
+	
   <div class="row">
 
     <div class="col-md-6 text-center">
@@ -114,14 +113,14 @@
     on-edit-event-click="vm.eventEdited(calendarEvent)"
     on-delete-event-click="vm.eventDeleted(calendarEvent)"
     cell-is-open="vm.isCellOpen"
-    day-view-start="06:00"
-    day-view-end="22:00"
+    day-view-start="08:00" //czas startu biznesu
+    day-view-end="18:00" //czas zakonczenia
     day-view-split="30"
     cell-modifier="vm.modifyCell(calendarCell)">
   </mwl-calendar>
 
   <br><br><br>
-
+  
   <h3 id="event-editor">
     Edycja wizyty
     <button
@@ -148,9 +147,19 @@
         <th>Usuń</th>
       </tr>
     </thead>
-
+	<p>{{title.search}}</p>
     <tbody>
-      <tr ng-repeat="event in vm.events track by $index">
+    <!-- event.startsAt track by $index -->
+    <p>Aktualna data {{vm.viewDate }}</p>
+    
+    <!-- | filter:{startsAt: vm.viewDate} -->
+    <!-- | filter:{startsAt: vm.n}  -->
+    <!-- | filter: {startsAt : vm.n}  -->
+      <tr ng-repeat="event in vm.events | orderBy: '-startsAt' track by $index ">
+       <!--
+       <td>{{vm.n}}</td>
+       <td>{{event.startsAt}}</td>
+        -->
         <td>
           <input
             type="text"
@@ -170,7 +179,7 @@
 			ng-model="event.surname" placeholder="Nazwisko">
         </td>
 		<td>
-		<input type="tel" class="form-control" ng-model="event.number_phone" placeholder="Numer telefonu">
+		<input type="tel" class="form-control" ng-model="event.phone" placeholder="Numer telefonu">
 		<!--
          <select ng-model="event.type" class="form-control">
             <option value="important">Important</option>
@@ -187,6 +196,7 @@
 		</td>
         <td>
           <p class="input-group" style="max-width: 250px">
+          
             <input
               type="text"
               class="form-control"

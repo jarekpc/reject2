@@ -26,6 +26,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/modalContent.html").setViewName("modalContent");
         //
         registry.addViewController("/list").setViewName("list");
+        registry.addViewController("/next_day").setViewName("next_day");
     }
 
     @Bean

@@ -5,6 +5,7 @@
 <title>Strona poczatkowa</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="././bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="././bower_components/bootstrap/dist/css/sticky-footer-navbar.css"/>
 <link href="././bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
 <!-- 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -18,9 +19,8 @@
     </div>
     <div>
       <ul class="nav navbar-nav">
-      <!-- 
+      
         <li><a href="/">Home</a></li>
-      -->
         <li><a href="adres">Dane adresowe</a></li>
         <li><a href="kalendarz">Kalendarz</a></li>
         <li><a href="raporty">Raporty</a></li>
@@ -35,12 +35,34 @@
     </div>
   </div>
 </nav>
+<!-- 
 <div class="container">
 <h2>Home Page</h2>
 <p>Witaj w aplikacji!</p>
 </div>
  <footer class="footer">
-      <code>padding-top: 60px;</code> on the <code>body > .container</code>.</p>
+      <p>Projekt i wykonanie: Jarosław Zyzak</p> 
  </footer>
+-->
+
+  <!-- Begin page content -->
+    <div class="container">
+      <div class="page-header">
+        <h1>Cel i założenia aplikacji</h1>
+      </div>
+      <p class="lead">
+      Aplikacji pozwala rejestrować wizyty klientów i usług w bazie na podstawie prowadzonego kalendarza, informacje tak zawarte są wysyłane w celu przepypomnienia wizyty (ok.24 h przed wizytą) do klienta usługi za pomocą smsa, maila. </p>
+      <p>Wszelkie dane sa bezpiecznie przechowywane i nie bedą wykorzystywane w celach marketingowych.</p>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Projekt i wykonanie aplikacji Jarosław Zyzak.
+        Kontakt do admistratora 509-755-875
+        <a href="#" class="mail" data-mail-local="fake" data-mail-domain="kamilbrenk.pl" tabindex="0" onfocus="this.href='mailto:' + this.getAttribute('data-mail-local') + '\u0040' + this.getAttribute('data-mail-domain');">Wyślij mail</a>
+        Wszelkie prawa zastrzeżone.</p>
+      </div>
+    </footer>
+    
 </body>
 </html>

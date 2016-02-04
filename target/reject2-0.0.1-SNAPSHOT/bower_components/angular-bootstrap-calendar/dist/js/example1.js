@@ -1,15 +1,47 @@
 angular.module('mwl.calendar.docs', ['mwl.calendar', 'ngAnimate', 'ui.bootstrap']);
 angular
   .module('mwl.calendar.docs') //you will need to declare your module with the dependencies ['mwl.calendar', 'ui.bootstrap', 'ngAnimate']
+  //
+  
+  .config(function(calendarConfig) {
+
+    console.log(calendarConfig); //view all available config
+
+    //calendarConfig.templates.calendarMonthView = 'path/to/custom/template.html'; //change the month view template to a custom template
+    
+    calendarConfig.dateFormatter = 'moment'; //use either moment or angular to format dates on the calendar. Default angular. Setting this will override any date formats you have already set.
+    
+    calendarConfig.allDateFormats.moment.date.hour = 'HH:mm'; //this will configure times on the day view to display in 24 hour format rather than the default of 12 hour
+
+    calendarConfig.allDateFormats.moment.title.day = 'dddd D MMMM'; //this will configure the day view title to be shorter
+    
+    calendarConfig.allDateFormats.moment.title.search = 'D MMMM'; //
+
+    calendarConfig.i18nStrings.eventsLabel = 'Zdarzenia'; //This will set the events label on the day view
+
+    calendarConfig.i18nStrings.timeLabel = 'Czas';//
+    
+    calendarConfig.displayAllMonthEvents = true; //This will display all events on a month view even if they're not in the current month. Default false.
+
+    calendarConfig.displayEventEndTimes = true; //This will display event end times on the month and year views. Default false.
+
+    calendarConfig.showTimesOnWeekView = true; //Make the week view more like the day view, with the caveat that event end times are ignored.
+
+  })
+  
+  //
   .controller('KitchenSinkCtrl', function(moment, alert,$http) {
 
     var vm = this;
-	moment.locale("pl");
     //These variables MUST be set as a minimum for the calendar to work
     vm.calendarView = 'day';
+    //
     vm.viewDate = new Date();
+    
+    vm.n = vm.viewDate.getTime();
 	
     vm.events = [
+      /*
       {
         title: 'An event',
         type: 'warning',
@@ -33,8 +65,25 @@ angular
         draggable: true,
         resizable: true
       }
+      */
     ];
-
+    //
+    vm.greaterThan = function(prop, val){
+        return function(item){
+          return item[prop] < val;
+        }
+    };
+    //fill array events
+    
+    //$http.get('/calosc').success(function(data){
+    $http.get('/caloscAll').success(function(data){
+		console.log(data);
+		data.forEach(function(entry) {
+			//vm.events.push({title: entry.title ,startsAt: entry.startsat, endsAt: entry.endsat });
+			vm.events.push({title: entry.title ,startsAt: entry.startsat, endsAt: entry.endsat, cost: entry.cost, name: entry.client.name, surname: entry.client.surname, phone: entry.client.phone, email: entry.client.email});
+		});    	    	 
+    });    
+    
     vm.isCellOpen = true;
 
     vm.eventClicked = function(event) {
@@ -76,7 +125,7 @@ angular
  			      name: entry.name,
 	  			  surname: entry.surname,
 	  			  email: entry.email,
-	  			  number_phone: entry.number_phone
+	  			  phone: entry.phone
  			   });
     			//
     			/*

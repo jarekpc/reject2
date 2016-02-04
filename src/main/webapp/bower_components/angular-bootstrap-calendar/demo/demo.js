@@ -79,6 +79,8 @@ if(typeof entry.startsAt != "number" && typeof entry.endsAt != "number" && typeo
       $event.stopPropagation();
       event[field] = !event[field];
       console.log('toggle');
-    };
+    }
 
-  });
+  //});mwl.calendar
+   
+});

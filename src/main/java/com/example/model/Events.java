@@ -11,10 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-@Entity
-public class Events implements Serializable {
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-	
+@Entity
+public class Events implements Serializable  {
+
+	//
 	@Column(name="ID_EVENT")
 	private Long id_event;
 	
@@ -33,6 +35,7 @@ public class Events implements Serializable {
 	private Client client;
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "events")
+	@JsonManagedReference
 	public Client getClient() {
 		return client;
 	}
@@ -104,7 +107,11 @@ public class Events implements Serializable {
 		this.endsat = endsat;
 		this.cost = cost;
 	}
-	
-	
-	
+	/*
+	@Override
+	public String toString() {
+		return String.format("Event[id_event=%d, title='%s', client='%s']",
+				id_event, title,client.getName());
+	}
+	*/
 }
